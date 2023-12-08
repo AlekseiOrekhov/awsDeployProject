@@ -52,7 +52,7 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.AWS_ECR_REGISTRY_IP }}
-        username: ec2-user  # Change this to your AWS service's SSH username
+        username: ${{ secrets.AWS_SSH_USER }}
         key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
         script: |
           docker stop $(docker ps -aq) || true
