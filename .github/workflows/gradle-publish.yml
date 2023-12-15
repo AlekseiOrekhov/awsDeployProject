@@ -65,3 +65,12 @@ jobs:
         key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
         script: |
           docker rmi $(docker images -q) || true
+          
+    - name: Pull new image from dockerHub
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.AWS_ECR_REGISTRY_IP }}
+        username: ${{ secrets.AWS_SSH_USER }}
+        key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
+        script: |
+          sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOKCERHUB_REPOSITORY_NAME }}:latest
